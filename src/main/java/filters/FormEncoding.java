@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
+ * Force toutes les communications entrantes en UTF-8.
  *
  * @author Herbert Caffarel
  */
@@ -29,6 +30,8 @@ public class FormEncoding implements Filter {
     }
 
     /**
+     * Le travail effectué avant de passer la main au filtre suivant de la
+     * chaine.
      *
      * @param request The servlet request we are processing
      * @param response The servlet response we are creating
@@ -40,9 +43,11 @@ public class FormEncoding implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        
+
+        // Le travail à faire en entrée
         doBeforeProcessing(request, response);
 
+        // Le passage au filtre suivant
         Throwable problem = null;
         try {
             chain.doFilter(request, response);
@@ -54,6 +59,7 @@ public class FormEncoding implements Filter {
             t.printStackTrace();
         }
 
+        // Le travail à faire en sortie
         doAfterProcessing(request, response);
     }
 

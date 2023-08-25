@@ -1,4 +1,3 @@
-
 package servlets;
 
 import dao.DAOFactory;
@@ -13,13 +12,14 @@ import java.io.IOException;
  *
  * @author Herbert Caffarel
  */
-@WebServlet(urlPatterns = "/showUsers")
-public class showUsers extends HttpServlet {
+@WebServlet(urlPatterns = "/showArticles")
+public class showArticles extends HttpServlet {
 
-    public static final String VIEW = "/WEB-INF/users.jsp";
+    private static final String VIEW = "/WEB-INF/articles.jsp";
 
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -27,15 +27,16 @@ public class showUsers extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        request.setAttribute("list", DAOFactory.getPersonDao().list());
+            throws ServletException, IOException {
+        request.setAttribute("list", DAOFactory.getArticleDao().list());
         request.getServletContext()
                 .getRequestDispatcher(VIEW)
                 .forward(request, response);
-    } 
+    }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -43,8 +44,8 @@ public class showUsers extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        throw new ServletException("doPost() not implemented in showUsers!");
+            throws ServletException, IOException {
+        throw new ServletException("doPost() not implemented in showArticles!");
     }
 
 }

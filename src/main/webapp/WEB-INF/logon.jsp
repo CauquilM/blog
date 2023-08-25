@@ -12,7 +12,7 @@
         <link type="text/css" rel="stylesheet" href="<c:url value="/assets/css/form.css"/>" />
     </head>
     <body>
-        <form method="post" action="inscription">
+        <form method="post" action="<c:url value="/logon"/>">
             <fieldset>
                 <legend>Inscription</legend>
                 <p>Vous pouvez vous inscrire via ce formulaire.</p>

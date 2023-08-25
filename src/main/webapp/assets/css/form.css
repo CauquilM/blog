@@ -14,6 +14,20 @@ legend {
     color: #0568CD;
 }
 
+.warning {
+    color:darkorange;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+article {
+    border: 1px solid darkblue;
+    border: 1rem;
+}
+
 /* Forms */
 
 form label {

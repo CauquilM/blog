@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Singleton de connexion à la base de données SQLite.
  *
  * @author Herbert Caffarel
  */
@@ -18,6 +19,12 @@ public final class SQLiteConnection {
     private SQLiteConnection() {
     }
 
+    /**
+     * Fournit le singleton de connexion à l abase de données ou crée la base de
+     * données si elle n'existe pas.
+     *
+     * @return Une connexion à la base de données
+     */
     public static final Connection getConnection() {
         if (connection == null) {
             String url = "jdbc:sqlite:blog.db";
@@ -28,18 +35,6 @@ public final class SQLiteConnection {
                 if (connection == null) {
                     throw new IOException("DB inexistante");
                 }
-                try {
-                    String sql = "CREATE TABLE personne(id_personne integer primary key autoincrement, name TEXT);";
-                    connection.prepareStatement(sql).executeUpdate();
-                } catch (SQLException ex) {
-                    System.err.println("Table personne existe déjà");
-                }
-                try {
-                    String sql = "CREATE TABLE article(id_article integer primary key autoincrement, content TEXT);";
-                    connection.prepareStatement(sql).executeUpdate();
-                } catch (SQLException ex) {
-                    System.err.println("Table article existe déjà");
-                }
             } catch (IOException | ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(SQLiteConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -47,7 +42,4 @@ public final class SQLiteConnection {
         return connection;
     }
 
-    {
-
-    }
 }
