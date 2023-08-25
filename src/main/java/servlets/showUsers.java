@@ -1,3 +1,4 @@
+
 package servlets;
 
 import dao.DAOFactory;
@@ -9,15 +10,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import models.PersonneBean;
 
-@WebServlet(name = "Inscription", urlPatterns = {"/inscription"})
-public class Inscription extends HttpServlet {
+/**
+ *
+ * @author Herbert Caffarel
+ */
+@WebServlet(urlPatterns = "/showUsers")
+public class showUsers extends HttpServlet {
 
-    /* Des constantes */
-    private static final String VUE = "/WEB-INF/inscription.jsp";
-
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -25,16 +26,14 @@ public class Inscription extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        /* Affichage de la page d'inscription */
-        this.getServletContext()
-                .getRequestDispatcher(VUE)
-                .forward(request, response);
-    }
+    throws ServletException, IOException {
+        for (PersonneBean bean : DAOFactory.getPersonneDao().list()) {
+            System.out.println(bean);
+        }
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -42,16 +41,8 @@ public class Inscription extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // Appeler le vérificateur du formulaire
-        // qui va vérifier les valeurs et créer un bean si ells sont valides
-        // et retourner ce bean
-        // si les valeurs sont fausses, le bean retourné sera null
-
-        String name = request.getParameter("username");
-        PersonneBean obj = new PersonneBean();
-        obj.setName(name);
-        DAOFactory.getPersonneDao().create(obj);
+    throws ServletException, IOException {
+        throw new ServletException("doPost() not implemented in showUsers!");
     }
 
 }

@@ -12,6 +12,7 @@
         <title>Accueil</title>
     </head>
     <body>
-        <a href="<c:url value="inscription"/>">Vers la page d'inscription</a>
+        <a href="<c:url value="inscription"/>">Vers la page d'inscription</a> <br>
+        <a href="<c:url value="showUsers"/>">Voir les utilisateurs</a>
     </body>
 </html>
