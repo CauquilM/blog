@@ -32,6 +32,7 @@ public class showUsers extends HttpServlet {
         request.getServletContext()
                 .getRequestDispatcher(VIEW)
                 .forward(request, response);
+        System.out.println("test: " + DAOFactory.getPersonDao().list());
     } 
 
     /** 

@@ -1,15 +1,14 @@
 package models;
 
-/**
- * Bean pour la table person.
- *
- * @author Herbert Caffarel
- */
-public class PersonBean extends Bean {
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import models.Bean;
 
+public class PersonBean extends Bean {
     private Integer id_personne;
     private String email;
-    private String password;
+    private String password; // This will store the hashed password
     private String name;
 
     public Integer getId_personne() {
@@ -41,7 +40,38 @@ public class PersonBean extends Bean {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = hashPassword(password);
+    }
+
+    private String hashPassword(String password) {
+        byte[] salt = generateSalt();
+        return hashPasswordWithSalt(password, salt);
+    }
+
+    private byte[] generateSalt() {
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[16];
+        random.nextBytes(salt);
+        return salt;
+    }
+
+    private String hashPasswordWithSalt(String password, byte[] salt) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(salt);
+            byte[] hashedBytes = md.digest(password.getBytes());
+
+            // Convert the hashed bytes to a hexadecimal string representation
+            StringBuilder sb = new StringBuilder();
+            for (byte b : hashedBytes) {
+                sb.append(String.format("%02x", b));
+            }
+
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -56,7 +86,6 @@ public class PersonBean extends Bean {
 
     @Override
     public String toString() {
-        return "PersonneBean{" + "id_personne=" + id_personne + ", email=" + email + ", password=" + password + ", name=" + name + '}';
+        return "PersonBean{" + "id_personne=" + id_personne + ", email=" + email + ", password=" + password + ", name=" + name + '}';
     }
-
 }
