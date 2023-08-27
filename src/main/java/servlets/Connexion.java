@@ -4,6 +4,7 @@
  */
 package servlets;
 
+import dao.DAOFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import models.PersonBean;
 
 /**
  *
@@ -37,6 +39,21 @@ public class Connexion extends HttpServlet {
         this.getServletContext()
                 .getRequestDispatcher(VUE)
                 .forward(request, response);
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Appeler le vérificateur du formulaire
+        // qui va vérifier les valeurs et créer un bean si ells sont valides
+        // et retourner ce bean.
+        // Si les valeurs sont fausses, le bean retourné sera null
+        PersonBean obj = new PersonBean();
+        obj.setEmail(request.getParameter("email"));
+        obj.setPassword(request.getParameter("password"));
+        System.err.print("obj: " + obj);
+        DAOFactory.getPersonDao().persist(obj);
+        // Redirection vers la page d'accueil
+        response.sendRedirect(request.getServletContext().getContextPath() + "/");
     }
 
 }

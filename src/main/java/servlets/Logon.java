@@ -51,6 +51,7 @@ public class Logon extends HttpServlet {
         obj.setName(request.getParameter("username"));
         obj.setEmail(request.getParameter("email"));
         obj.setPassword(request.getParameter("password"));
+        System.err.print("obj: " + obj);
         DAOFactory.getPersonDao().persist(obj);
         // Redirection vers la page d'accueil
         response.sendRedirect(request.getServletContext().getContextPath() + "/");

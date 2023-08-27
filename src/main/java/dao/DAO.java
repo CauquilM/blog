@@ -69,12 +69,13 @@ public abstract class DAO<T extends Bean> {
      * @param id L'identifiant de la ligne de la table
      * @return Le bean hydraté des valeurs de la table
      */
-    public T get(int id) {
+    public T get(String email, String password) {
         T obj = null;
-        String sql = "SELECT * FROM " + table + " WHERE id_" + table + "=?";
+        String sql = "SELECT * FROM " + table + " WHERE email =? AND password =?";
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, id);
+            pstmt.setString(1, email);
+            pstmt.setString(2, password);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 obj = createBean(rs);

@@ -20,6 +20,7 @@
                 <span class="warning">Attention ! Supprime son contenu s'il existe !</span>
             </li>
             <li><a href="<c:url value="/logon"/>">Vers la page d'inscription</a></li>
+            <li><a href="<c:url value="/connexion"/>">Vers la page de connexion</a></li>
             <li><a href="<c:url value="/createArticle"/>">Vers la page de création d'un article</a></li>
             <li><a href="<c:url value="/showUsers"/>">Voir les utilisateurs</a></li>
             <li><a href="<c:url value="/showArticles"/>">Voir les articles</a></li>
